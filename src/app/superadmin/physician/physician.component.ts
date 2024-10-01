@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -16,7 +17,7 @@ export class PhysicianComponent implements OnInit {
   isDeletePopupVisible: boolean = false;
   physicianToDeleteId: string | null = null;
 
-  constructor(private commonService: CommonService, private toastrService: ToastrService) {}
+  constructor(private commonService: CommonService, private toastrService: ToastrService,private router:Router) {}
 
   ngOnInit(): void {
     this.fetchPhysicians(this.currentPage);
@@ -93,6 +94,11 @@ export class PhysicianComponent implements OnInit {
     }
 
     return null; 
+}
+
+viewPhysician(_id:any){
+  const compressedId = this.commonService.encodeId(_id); // Compress the ID
+  this.router.navigate(['superadmin/view-physician'], { queryParams: { accessId: compressedId } });
 }
 
 

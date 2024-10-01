@@ -10,6 +10,8 @@ import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeletePopupComponent } from '../shared-module/commonComponents/delete-popup/delete-popup.component';
+import { ViewPhysicianComponent } from './view-physician/view-physician.component';
+import { ViewPatientComponent } from './view-patient/view-patient.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { DeletePopupComponent } from '../shared-module/commonComponents/delete-p
     PatientComponent,
     PhysicianComponent,
     AddAdminComponent,
+    ViewPhysicianComponent,
+    ViewPatientComponent,
   ],
   imports: [
     CommonModule,

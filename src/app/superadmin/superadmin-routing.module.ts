@@ -7,6 +7,8 @@ import { PatientComponent } from './patient/patient.component';
 import { LayoutComponent } from '../shared-module/layout/layout.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AuthGuard } from '../guards/auth.guard'; // Import the AuthGuard
+import { ViewPhysicianComponent } from './view-physician/view-physician.component';
+import { ViewPatientComponent } from './view-patient/view-patient.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,16 @@ const routes: Routes = [
       {
         path: "add-admin",
         component: AddAdminComponent,
+        canActivate: [AuthGuard] // Protect this route
+      },
+      {
+        path: "view-physician",
+        component: ViewPhysicianComponent,
+        canActivate: [AuthGuard] // Protect this route
+      },
+      {
+        path: "view-patient",
+        component: ViewPatientComponent,
         canActivate: [AuthGuard] // Protect this route
       }
     ]
