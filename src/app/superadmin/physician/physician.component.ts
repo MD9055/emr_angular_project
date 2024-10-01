@@ -98,7 +98,7 @@ export class PhysicianComponent implements OnInit {
 
 viewPhysician(_id:any){
   const compressedId = this.commonService.encodeId(_id); // Compress the ID
-  this.router.navigate(['superadmin/view-physician'], { queryParams: { accessId: compressedId } });
+  this.router.navigate(['admin/view-physician'], { queryParams: { accessId: compressedId } });
 }
 
 
