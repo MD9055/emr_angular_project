@@ -1,2 +1,2 @@
-# emr_angular_project
-Angular EMR
+# emr_project_frontend
+Angular Project
