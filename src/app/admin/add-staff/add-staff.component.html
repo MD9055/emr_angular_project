@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item">
                             <i class="feather-chevron-right"></i>
                         </li>
-                        <li class="breadcrumb-item active">Add Staff</li>
+                        <li class="breadcrumb-item active">{{status}} Staff</li>
                     </ul>
                 </div>
             </div>
@@ -150,7 +150,9 @@
 
                                 <div class="col-12">
                                     <div class="doctor-submit text-end">
-                                        <button class="btn btn-primary submit-form me-2" type="submit">Submit</button>
+                                        <button *ngIf="status == 'Update'" class="btn btn-primary submit-form me-2" type="submit">Update</button>
+                                        <button  *ngIf="status != 'Update'"class="btn btn-primary submit-form me-2" type="submit">Submit</button>
+
                                         <button type="button" class="btn btn-primary cancel-form" (click)="onCancel()">Cancel</button>
                                     </div>
                                 </div>

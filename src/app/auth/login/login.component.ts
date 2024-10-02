@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   passwordClass: boolean = false;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private commonService:CommonService,private authService: AuthService ) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private commonService:CommonService,private authService: AuthService, private toastrService:ToastrService ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -35,10 +36,12 @@ export class LoginComponent implements OnInit {
   
           const decodedToken = this.commonService.decodeToken(response?.data?.token);
           console.log(decodedToken);
-  
+          this.toastrService.success(response.message)
           this.commonService.redirectBasedOnRole(decodedToken.role);
         } else {
-          this.errorMessage = response.message;
+          // this.errorMessage = response.message;
+          this.toastrService.error(response.message)
+          
         }
       }, error => {
         this.errorMessage = 'Login failed. Please try again.';

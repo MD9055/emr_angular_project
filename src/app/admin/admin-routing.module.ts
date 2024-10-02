@@ -22,32 +22,38 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashboardComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
       },
       {
         path: "physician",
         component: PhysicianComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
       },
       {
         path: "patient",
         component: PatientComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] }, 
       },
       {
         path: "add-physician",
         component: AddPhysicianComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
       },
       {
         path: "staff",
         component: StaffComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
       },
       {
         path: "add-staff",
         component: AddStaffComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
       },
       
      

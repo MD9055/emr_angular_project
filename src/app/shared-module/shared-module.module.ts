@@ -6,6 +6,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DeletePopupComponent } from './commonComponents/delete-popup/delete-popup.component';
+import { ForbiddenComponent } from './commonComponents/forbidden/forbidden.component';
+import { SettingComponent } from '../superadmin/setting/setting.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,12 +16,16 @@ import { DeletePopupComponent } from './commonComponents/delete-popup/delete-pop
     SidebarComponent,
     HeaderComponent,
     LayoutComponent,
-    DeletePopupComponent
+    DeletePopupComponent,
+    ForbiddenComponent,
+    SettingComponent
   ],
   imports: [
     CommonModule,
-    SharedModuleRoutingModule
+    SharedModuleRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  exports: [SidebarComponent, HeaderComponent, DeletePopupComponent]
+  exports: [SidebarComponent, HeaderComponent, DeletePopupComponent, ForbiddenComponent]
 })
 export class SharedModuleModule { }

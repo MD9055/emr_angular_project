@@ -18,13 +18,15 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashboardComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: [7] },
       },
 
         {
           path:"patient", 
            component:PatientComponent,
-           canActivate: [AuthGuard]
+           canActivate: [AuthGuard],
+           data: { roles: [7] },
         },
     ]
   }

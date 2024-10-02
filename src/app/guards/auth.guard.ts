@@ -3,20 +3,26 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
+    state: RouterStateSnapshot
+  ): boolean {
     if (this.authService.isLoggedIn()) {
-      // If logged in, allow access
-      return true;
+      const userRole:any = this.authService.getRole(); 
+      const requiredRoles = route.data['roles'] as Array<number>;
+
+      if (requiredRoles && userRole !== null && requiredRoles.includes(userRole)) {
+        return true; 
+      } else {
+        this.router.navigate(['/forbidden']); // Redirect if access is denied
+        return false;
+      }
     } else {
-      // If not logged in, redirect to the login page
       this.router.navigate(['/login']);
       return false;
     }

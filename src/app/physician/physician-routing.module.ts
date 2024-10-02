@@ -28,18 +28,21 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashbaordComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+        data: { roles: [2] },
       },
 
         {
           path:"patient", 
            component:PatientComponent,
-           canActivate: [AuthGuard]
+           canActivate: [AuthGuard],
+           data: { roles: [2] },
         },
         {
           path:"add-patient", 
           component:AddPatientComponent,
-          canActivate: [AuthGuard]
+          canActivate: [AuthGuard],
+          data: { roles: [2] },
 
         }
             

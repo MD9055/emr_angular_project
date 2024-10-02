@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -15,7 +16,7 @@ export class StaffComponent implements OnInit {
   totalDocs: number = 0; // New property to track total items
   totalPages: any;
 
-  constructor(private commonService: CommonService, private toastrService:ToastrService) {}
+  constructor(private commonService: CommonService, private toastrService:ToastrService, private router:Router) {}
 
   ngOnInit(): void {
     this.fetchStaff();
@@ -75,5 +76,9 @@ export class StaffComponent implements OnInit {
     return Math.min(this.currentPage * this.itemsPerPage, this.totalDocs);
   }
   
+  editStaff(_id:any){
+    const compressedId = this.commonService.encodeId(_id); // Compress the ID
+    this.router.navigate(['admin/add-staff'], { queryParams: { accessId: compressedId } });
+  }
 
 }

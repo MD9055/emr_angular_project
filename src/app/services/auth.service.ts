@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { CommonService } from './common.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor( private commonService:CommonService) { }
 
   // Method to log in the user and set the token
   login(token: any) {
@@ -32,5 +33,14 @@ export class AuthService {
 
   setToken(token: string) {
     localStorage.setItem('token', token);
+  }
+
+  getRole(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decoded: any = this.commonService.decodeToken(token)
+      return decoded.role; 
+    }
+    return null;
   }
 }

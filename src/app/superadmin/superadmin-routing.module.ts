@@ -9,6 +9,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AuthGuard } from '../guards/auth.guard'; // Import the AuthGuard
 import { ViewPhysicianComponent } from './view-physician/view-physician.component';
 import { ViewPatientComponent } from './view-patient/view-patient.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   {
@@ -23,37 +24,52 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashbaordComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+        data: { roles: [0] },
       },
       {
         path: "admin",
         component: AdminComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard], // Protect this route
+        data: { roles: [0] },
       },
       {
         path: "physician",
         component: PhysicianComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+        data: { roles: [0] }
       },
       {
         path: "patient",
         component: PatientComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+         data: { roles: [0] }
       },
       {
         path: "add-admin",
         component: AddAdminComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+         data: { roles: [0] }
       },
       {
         path: "view-physician",
         component: ViewPhysicianComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+         data: { roles: [0] }
       },
       {
         path: "view-patient",
         component: ViewPatientComponent,
-        canActivate: [AuthGuard] // Protect this route
+        canActivate: [AuthGuard],
+         data: { roles: [0] }
+      },
+      {
+        path:"settings",
+        component:SettingComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [0] }
+      
+    
       }
     ]
   }

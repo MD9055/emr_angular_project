@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SetupProfileComponent } from './auth/setup-profile/setup-profile.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ForbiddenComponent } from './shared-module/commonComponents/forbidden/forbidden.component';
+import { SettingComponent } from './superadmin/setting/setting.component';
 
 const routes: Routes = [
   {
@@ -40,7 +42,15 @@ const routes: Routes = [
   {
     path:"reset-password",
     component:ResetPasswordComponent
-  }
+  },
+  {
+    path:"forbidden",
+    component:ForbiddenComponent,
+    
+
+  },
+ 
+  
 ];
 
 @NgModule({
