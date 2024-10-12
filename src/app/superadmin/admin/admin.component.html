@@ -26,10 +26,17 @@
                       <h3>Admin List</h3>
                       <div class="doctor-search-blk">
                         <div class="top-nav-search table-search-blk">
-                          <input class="form-control" placeholder="Search here" id="searchInput">
-                          <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
+                          <div [formGroup]="adminForm">
+                            <input class="form-control" placeholder="Search here" formControlName="search">
+                            <a class="btn" (click)="onSearch()">
+                              <img src="assets/img/icons/search-normal.svg" alt="">
+                            </a>
+                          </div>
                         </div>
                         <div class="add-group">
+
+                         
+                          <a href="javascript:;" class="btn btn-primary doctor-refresh ms-2" (click)="onSearch()"><img src="assets/img/icons/re-fresh.svg" alt=""></a>
                           <!-- <a href="add-doctor.html" class="btn btn-primary add-pluss ms-2"><img src="assets/img/icons/plus.svg" alt=""></a> -->
                           <a [routerLink]="['/superadmin/add-admin']" class="btn btn-primary add-pluss ms-2">
                             <img src="assets/img/icons/plus.svg" alt="Add">

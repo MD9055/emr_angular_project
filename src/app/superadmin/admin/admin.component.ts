@@ -17,35 +17,31 @@ export class AdminComponent implements OnInit {
   totalPages: number = 1;
   itemsPerPage: number = 10;
   totalDocs: number = 0;
-  searchForm: FormGroup;
+  adminForm: any;
 
-  constructor(private commonService: CommonService, private fb: FormBuilder,private toastService:ToastrService, private spinnerService : NgxSpinnerService, private router:Router) {
-    this.searchForm = this.fb.group({
+  constructor(private commonService: CommonService, private fb: FormBuilder, private toastService: ToastrService, private spinnerService: NgxSpinnerService, private router: Router) {
+    this.adminForm = this.fb.group({
       search: ['']
     });
   }
 
   ngOnInit(): void {
     this.loadAdminData();
-
-    // Subscribe to search input changes
-    this.searchForm.get('search')!.valueChanges.subscribe(value => {
-      this.currentPage = 1; // Reset to the first page when searching
-      this.loadAdminData();  // Fetch data based on the search input
-    });
   }
+
   showSuccess(message: string, title: string = 'Success', duration: number = 2000) {
     this.toastService.success(message, title, {
-      timeOut: duration, // Duration in milliseconds
+      timeOut: duration,
       progressBar: true,
       closeButton: true
     });
   }
 
   loadAdminData(): void {
-    this.spinnerService.show()
-    const searchQuery = this.searchForm.get('search')!.value.trim();
-    const query = searchQuery ? `&search=${searchQuery}` : '';
+    this.spinnerService.show();
+    console.log(this.adminForm.value)
+    const searchQuery = this.adminForm.get('search')!.value.trim();
+    const query = searchQuery ?`&search=${encodeURIComponent(searchQuery)}` : '';
     this.commonService.get(`superadmin/alladmins?page=${this.currentPage}&limit=${this.itemsPerPage}${query}`)
       .pipe(
         catchError((error) => {
@@ -55,16 +51,21 @@ export class AdminComponent implements OnInit {
         })
       )
       .subscribe((response: any) => {
-        if (response && response.statusCode == 200) {
+        if (response && response.statusCode === 200) {
           this.admins = response.data.docs;
           this.totalPages = response.data.totalPages;
           this.totalDocs = response.data.totalDocs;
-          this.spinnerService.hide()
+          this.spinnerService.hide();
           this.showSuccess(response.message);
         } else {
           this.toastService.warning('No admin data found.');
         }
       });
+  }
+
+  onSearch(): void {
+    this.currentPage = 1; // Reset to the first page when searching
+    this.loadAdminData();  // Fetch data based on the search input
   }
 
   goToPage(page: number): void {
@@ -84,34 +85,32 @@ export class AdminComponent implements OnInit {
 
   deleteAdmin(physicianId: any) {
     if (!physicianId) {
-        return null;
+      return null;
     }
 
     const confirmDelete = confirm("Are you sure you want to delete?");
     if (confirmDelete) {
-        let body = { _id: physicianId };
-        return this.commonService.put('common/deleteByID', body).subscribe(
-            (response: any) => {
-                if (response.statusCode === 200) {
-                    this.toastService.success(response.message);
-                    this.loadAdminData()
-                } else {
-                    this.toastService.error(response.message || 'Error occurred during deletion.');
-                }
-            },
-            (error) => {
-                this.toastService.error(error.error?.message || 'An unexpected error occurred.');
-            }
-        );
+      let body = { _id: physicianId };
+      return this.commonService.put('common/deleteByID', body).subscribe(
+        (response: any) => {
+          if (response.statusCode === 200) {
+            this.toastService.success(response.message);
+            this.loadAdminData();
+          } else {
+            this.toastService.error(response.message || 'Error occurred during deletion.');
+          }
+        },
+        (error) => {
+          this.toastService.error(error.error?.message || 'An unexpected error occurred.');
+        }
+      );
     }
 
     return null; 
-}
+  }
 
-
-editAdmin(_id: any) {
-  const compressedId = this.commonService.encodeId(_id); // Compress the ID
-  this.router.navigate(['superadmin/add-admin'], { queryParams: { accessId: compressedId } });
-}
-
+  editAdmin(_id: any) {
+    const compressedId = this.commonService.encodeId(_id); // Compress the ID
+    this.router.navigate(['superadmin/add-admin'], { queryParams: { accessId: compressedId } });
+  }
 }

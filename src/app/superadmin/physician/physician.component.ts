@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
@@ -16,15 +17,23 @@ export class PhysicianComponent implements OnInit {
   errorMessage: string | null = null; 
   isDeletePopupVisible: boolean = false;
   physicianToDeleteId: string | null = null;
+  searchForm:any
+  itemsPerPage: number = 10;
 
-  constructor(private commonService: CommonService, private toastrService: ToastrService,private router:Router) {}
+  constructor(private commonService: CommonService, private toastrService: ToastrService,private router:Router, private fb:FormBuilder) {
+    this.searchForm = this.fb.group({
+      search: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.fetchPhysicians(this.currentPage);
   }
 
   fetchPhysicians(page: number) {
-    this.commonService.get(`admin/listPhysicians?page=${page}`).subscribe({
+    const searchQuery = this.searchForm.get('search')!.value.trim();
+    const query = searchQuery ?`&search=${encodeURIComponent(searchQuery)}` : '';
+    this.commonService.get(`admin/listPhysicians?page=${this.currentPage}&limit=${this.itemsPerPage}${query}`).subscribe({
       next: (response: any) => {
         this.physicians = response.data.docs;
         this.totalDocs = response.data.totalDocs;
@@ -99,6 +108,11 @@ export class PhysicianComponent implements OnInit {
 viewPhysician(_id:any){
   const compressedId = this.commonService.encodeId(_id); // Compress the ID
   this.router.navigate(['admin/view-physician'], { queryParams: { accessId: compressedId } });
+}
+
+onSearch(): void {
+  this.currentPage = 1; // Reset to the first page when searching
+  this.fetchPhysicians(this.currentPage);  // Fetch data based on the search input
 }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { EncryptionDecryptionService } from 'src/app/services/encryption-decryption.service';
@@ -11,13 +12,22 @@ import { MaskingService } from 'src/app/services/masking.service';
 })
 export class PatientComponent implements OnInit {
   patients: any;
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 10;
+  totalDocs: number = 0;
+  searchForm:any
 
   constructor(
     private commonService:CommonService,
     private encryptionDecryptionService:EncryptionDecryptionService,
     private maskingService:MaskingService,
-    private router : Router
+    private router : Router,
+    private fb: FormBuilder
   ){
+    this.searchForm = this.fb.group({
+      search: ['']
+    });
 
   }
   ngOnInit(): void {
@@ -25,10 +35,14 @@ export class PatientComponent implements OnInit {
   }
 
   fetchPatients() {
-    return this.commonService.get('physician/listPatients').subscribe(
+    const searchQuery = this.searchForm.get('search')!.value.trim();
+    const query = searchQuery ?`&search=${encodeURIComponent(searchQuery)}` : '';
+    return this.commonService.get(`physician/listPatients?page=${this.currentPage}&limit=${this.itemsPerPage}${query}`).subscribe(
         (response: any) => {
             if (response.statusCode === 200) {
                  this.patients = response.data.docs; 
+                 this.totalPages = response.data.totalPages;
+                 this.totalDocs = response.data.totalDocs;
             } else {
                 console.error('Error fetching patients:', response.message);
                 throw new Error(response.message || 'Failed to fetch patients');
@@ -59,6 +73,26 @@ maskPhone(phone:any){
 viewPhysician(_id:any){
   const compressedId = this.commonService.encodeId(_id); // Compress the ID
   this.router.navigate(['superadmin/view-patient'], { queryParams: { accessId: compressedId } });
+}
+
+goToPage(page: number): void {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    this.fetchPatients();
+  }
+}
+
+getCurrentMin(): number {
+  return (this.currentPage - 1) * this.itemsPerPage + 1;
+}
+
+getCurrentMax(): number {
+  return Math.min(this.currentPage * this.itemsPerPage, this.totalDocs);
+}
+
+onSearch(): void {
+  this.currentPage = 1; // Reset to the first page when searching
+  this.fetchPatients();  // Fetch data based on the search input
 }
 
 }
