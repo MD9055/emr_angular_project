@@ -18,7 +18,7 @@ export class PhysicianComponent implements OnInit {
   isDeletePopupVisible: boolean = false;
   physicianToDeleteId: string | null = null;
   searchForm:any
-  itemsPerPage: number = 10;
+   itemsPerPage: number = 10;
 
   constructor(private commonService: CommonService, private toastrService: ToastrService,private router:Router, private fb:FormBuilder) {
     this.searchForm = this.fb.group({
@@ -107,7 +107,7 @@ export class PhysicianComponent implements OnInit {
 
 viewPhysician(_id:any){
   const compressedId = this.commonService.encodeId(_id); // Compress the ID
-  this.router.navigate(['admin/view-physician'], { queryParams: { accessId: compressedId } });
+  this.router.navigate(['superadmin/view-physician'], { queryParams: { accessId: compressedId } });
 }
 
 onSearch(): void {

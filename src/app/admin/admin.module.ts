@@ -10,6 +10,8 @@ import { PatientComponent } from './patient/patient.component';
 import { AddPhysicianComponent } from './add-physician/add-physician.component';
 import { StaffComponent } from './staff/staff.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
+import { ViewPhysicianComponent } from './view-physician/view-physician.component';
+import { ViewPatientComponent } from './view-patient/view-patient.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
     PatientComponent,
     AddPhysicianComponent,
     StaffComponent,
-    AddStaffComponent
+    AddStaffComponent,
+    ViewPhysicianComponent,
+    ViewPatientComponent
   ],
   imports: [
     CommonModule,

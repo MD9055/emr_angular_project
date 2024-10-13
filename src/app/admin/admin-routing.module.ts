@@ -8,6 +8,8 @@ import { PatientComponent } from './patient/patient.component';
 import { AddPhysicianComponent } from './add-physician/add-physician.component';
 import { StaffComponent } from './staff/staff.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
+import { ViewPhysicianComponent } from './view-physician/view-physician.component';
+import { ViewPatientComponent } from './view-patient/view-patient.component';
 
 const routes: Routes = [
   {
@@ -44,6 +46,18 @@ const routes: Routes = [
         data: { roles: [1] },
       },
       {
+        path: "view-physician",
+        component: ViewPhysicianComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: "view-patient",
+        component: ViewPatientComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [1] },
+      },
+      {
         path: "staff",
         component: StaffComponent,
         canActivate: [AuthGuard],
@@ -55,6 +69,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: [1] },
       },
+      
       
      
     ]

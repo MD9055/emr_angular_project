@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -15,8 +15,14 @@ export class AddPhysicianComponent implements OnInit {
   countryList: any[] = [];
   stateList: any[] = [];
   cityList: any[] = [];
+  adminId: any; 
+  status: any;
 
-  constructor(private fb: FormBuilder, private commonService: CommonService, private toastrService:ToastrService, private router:Router) {
+
+  constructor(private fb: FormBuilder, private commonService: CommonService, private toastrService:ToastrService, private router:Router,
+
+
+  ) {
     this.doctorForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -39,7 +45,7 @@ export class AddPhysicianComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit():any {
     this.getCountry(); // Fetch countries on initialization
   }
 
@@ -139,6 +145,31 @@ export class AddPhysicianComponent implements OnInit {
         this.handleError('An error occurred while fetching the city list.');
       }
     );
+  }
+
+
+
+  patchFormValues(data: any) {
+    this.doctorForm.patchValue({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      dob: new Date(data.dob).toISOString().substring(0, 10),
+      addressStreet1: data.address_street1,
+      addressStreet2: data.address_street2,
+      zipCode: data.zip_code,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      medicalLicenceNumber: data.medicalLicenceNumber,
+      medicalLicenceDate: new Date(data.medical_licence_date).toISOString().substring(0, 10),
+      deaNumber: data.deaNumber,
+      deaExpiryDate: new Date(data.dea_expiry_date).toISOString().substring(0, 10),
+      cdsNumber: data.cdsNumber,
+      cdsExpiryDate: new Date(data.cds_expiry_date).toISOString().substring(0, 10),
+      npiNumber: data.npiNumber,
+    });
   }
 
   handleError(message: string) {

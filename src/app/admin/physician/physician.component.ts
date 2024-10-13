@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -14,7 +15,7 @@ export class PhysicianComponent implements OnInit {
   totalPages: number = 0;
   errorMessage: string | null = null; 
 
-  constructor(private commonService: CommonService, private toastrService:ToastrService) {}
+  constructor(private commonService: CommonService, private toastrService:ToastrService, private router:Router) {}
 
   ngOnInit(): void {
     this.fetchPhysicians(this.currentPage);
@@ -45,5 +46,9 @@ export class PhysicianComponent implements OnInit {
   resetList() {
     this.currentPage = 1; 
     this.fetchPhysicians(this.currentPage);
+  }
+  viewPhysician(_id:any){
+    const compressedId = this.commonService.encodeId(_id); // Compress the ID
+    this.router.navigate(['admin/view-physician'], { queryParams: { accessId: compressedId } });
   }
 }

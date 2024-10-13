@@ -58,7 +58,7 @@ maskPhone(phone:any){
 
 viewPhysician(_id:any){
   const compressedId = this.commonService.encodeId(_id); // Compress the ID
-  this.router.navigate(['superadmin/view-patient'], { queryParams: { accessId: compressedId } });
+  this.router.navigate(['admin/view-patient'], { queryParams: { accessId: compressedId } });
 }
 
 }
