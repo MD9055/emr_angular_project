@@ -23,6 +23,7 @@ export class PhysicianComponent implements OnInit {
   fetchPhysicians(page: number) {
     this.commonService.get(`admin/listPhysicians?page=${page}`).subscribe({
       next: (response: any) => {
+        console.log(response, "response")
         this.physicians = response.data.docs;
         this.totalDocs = response.data.totalDocs;
         this.totalPages = response.data.totalPages;

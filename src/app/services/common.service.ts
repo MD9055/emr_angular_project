@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
 import {quotes} from '../../assets/ts/quotes'
+import {environment} from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CommonService {
   private quotes = quotes
 
 
-  private apiUrl = 'http://localhost:3000'; // replace with your API URL
+  private apiUrl = environment.apiUrl; // replace with your API URL
 
   constructor(private http: HttpClient, private router:Router) { }
 

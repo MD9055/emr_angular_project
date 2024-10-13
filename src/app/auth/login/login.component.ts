@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
         if (response.statusCode === 200) {
           console.log(response);
   
-          this.authService.login(response?.data?.token);
+          this.authService.login(response?.token);
   
-          const decodedToken = this.commonService.decodeToken(response?.data?.token);
+          const decodedToken = this.commonService.decodeToken(response?.token);
           console.log(decodedToken);
           this.toastrService.success(response.message)
           this.commonService.redirectBasedOnRole(decodedToken.role);
