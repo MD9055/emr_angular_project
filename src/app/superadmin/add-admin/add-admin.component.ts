@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class AddAdminComponent implements OnInit {
   adminId: any;
   status: any;
 
-  constructor(private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute, private router:Router) {
+  constructor(private fb: FormBuilder, private commonService: CommonService, private route: ActivatedRoute, private router:Router, private toastService:ToastrService) {
     this.accessActivatedRouteElement();
   }
 
@@ -141,7 +142,10 @@ export class AddAdminComponent implements OnInit {
         (response: any) => {
           if (response.statusCode === 200 || response.statusCode === 201) {
             console.log('Admin saved successfully:', response.data);
+            this.toastService.success(response.message)
             this.onCancel();
+            this.router.navigateByUrl('/superadmin/admin')
+
           } else {
             console.error(`Error: ${response.message}`);
             this.handleError(response.message);

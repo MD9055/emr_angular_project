@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
@@ -20,6 +20,31 @@ export class CommonService {
   // GET request
   get(endpoint: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${endpoint}`);
+  }
+  getRequest(endpoint: string, params?: { [key: string]: string }): Observable<any> {
+    let httpParams = new HttpParams();
+
+    
+
+    if (params) {
+      Object.keys(params).forEach(key => {
+        httpParams = httpParams.append(key, params[key]);
+      });
+    }
+
+    return this.http.get(`${this.apiUrl}/${endpoint}`, { params: httpParams });
+  }
+
+  download(id: string): Observable<Blob> {
+    const headers = new HttpHeaders({
+      Authorization: localStorage.getItem("token") || '', 
+    });
+
+    return this.http.get(`${this.apiUrl}/notes/downloadpdf`, {
+      headers: headers,
+      params: { id: id },
+      responseType: 'blob',
+    });
   }
 
   // POST request

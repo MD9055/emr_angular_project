@@ -67,6 +67,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr *ngIf="physicians.length === 0">
+                                        <td colspan="9" class="text-center">No data available</td>
+                                    </tr>
                                     <tr *ngFor="let physician of physicians">
                                         <td>
                                             <div class="form-check check-tables">

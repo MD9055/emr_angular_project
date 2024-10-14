@@ -14,6 +14,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './stroreReducer/reducer';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
     CommonModule,
     SuperadminModule,
     HttpClientModule,
+    StoreModule.forRoot(reducers),
     ToastrModule.forRoot({
       timeOut: 2000, 
       progressBar: true,

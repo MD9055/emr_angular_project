@@ -32,6 +32,11 @@ const routes: Routes = [
     
   },
   {
+    path: 'notes',
+    loadChildren: () => import('./note/note.module').then(m => m.NoteModule),
+    
+  },
+  {
     path:"setup-profile",
     component:SetupProfileComponent
   },
