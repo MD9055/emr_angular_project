@@ -82,7 +82,9 @@ export class SetupProfileComponent implements OnInit {
             if (newToken) {
               this.authService.setToken(newToken)
             }
-            this.router.navigate(['/']); 
+            let decodedToken = this.commonService.decodeToken(newToken)
+            this.commonService.redirectBasedOnRole(decodedToken.role)
+           
 
           } else {
             this.toastrService.error(response.message);
