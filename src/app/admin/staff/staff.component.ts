@@ -81,4 +81,31 @@ export class StaffComponent implements OnInit {
     this.router.navigate(['admin/add-staff'], { queryParams: { accessId: compressedId } });
   }
 
+  deleteStaff(_id:any){
+    if (!_id) {
+      return null;
+    }
+
+    const confirmDelete = confirm("Are you sure you want to delete?");
+    if (confirmDelete) {
+      let body = { _id: _id };
+      return this.commonService.put('common/deleteByID', body).subscribe(
+        (response: any) => {
+          if (response.statusCode === 200) {
+            this.toastrService.success(response.message);
+            this.fetchStaff();
+
+          } else {
+            this.toastrService.error(response.message || 'Error occurred during deletion.');
+          }
+        },
+        (error) => {
+          this.toastrService.error(error.error?.message || 'An unexpected error occurred.');
+        }
+      );
+    }
+
+    return null; 
+  }
+
 }

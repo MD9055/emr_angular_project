@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { EncryptionDecryptionService } from 'src/app/services/encryption-decryption.service';
 import { MaskingService } from 'src/app/services/masking.service';
@@ -14,7 +15,8 @@ export class PatientComponent implements OnInit {
   constructor(
     private commonService:CommonService,
     private encryptionDecryptionService:EncryptionDecryptionService,
-    private maskingService:MaskingService
+    private maskingService:MaskingService,
+    private router :Router
   ){
 
   }
@@ -52,6 +54,14 @@ maskEmail(email:any){
 
 maskPhone(phone:any){
   return this.maskingService.maskPhone(phone)
+}
+
+editpatient(_id: any) {
+  const compressedId = this.commonService.encodeId(_id); // Compress the ID
+  this.router.navigate(['physician/edit-patient'], { queryParams: { accessId: compressedId } });
+}
+deleteAdmin(_id:any){
+
 }
 
 }

@@ -5,6 +5,7 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { LayoutComponent } from '../shared-module/layout/layout.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { DashbaordComponent } from './dashbaord/dashbaord.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
 
 // const routes: Routes = [
 //   {
@@ -41,6 +42,14 @@ const routes: Routes = [
         {
           path:"add-patient", 
           component:AddPatientComponent,
+          canActivate: [AuthGuard],
+          data: { roles: [2] },
+
+        },
+
+        {
+          path:"edit-patient", 
+          component:EditPatientComponent,
           canActivate: [AuthGuard],
           data: { roles: [2] },
 

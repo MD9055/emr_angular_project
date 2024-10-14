@@ -51,4 +51,33 @@ export class PhysicianComponent implements OnInit {
     const compressedId = this.commonService.encodeId(_id); // Compress the ID
     this.router.navigate(['admin/view-physician'], { queryParams: { accessId: compressedId } });
   }
+
+  deletePhysician(_id:any){
+    if (!_id) {
+      return null;
+    }
+
+    const confirmDelete = confirm("Are you sure you want to delete?");
+    if (confirmDelete) {
+      let body = { _id: _id };
+      return this.commonService.put('common/deleteByID', body).subscribe(
+        (response: any) => {
+          if (response.statusCode === 200) {
+            this.toastrService.success(response.message);
+            this.fetchPhysicians(this.currentPage);
+
+          } else {
+            this.toastrService.error(response.message || 'Error occurred during deletion.');
+          }
+        },
+        (error) => {
+          this.toastrService.error(error.error?.message || 'An unexpected error occurred.');
+        }
+      );
+    }
+
+    return null; 
+  }
+
+ 
 }

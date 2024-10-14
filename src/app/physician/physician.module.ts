@@ -7,13 +7,15 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashbaordComponent } from './dashbaord/dashbaord.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
 
 
 @NgModule({
   declarations: [
     PatientComponent,
     AddPatientComponent,
-    DashbaordComponent
+    DashbaordComponent,
+    EditPatientComponent
   ],
   imports: [
     CommonModule,
