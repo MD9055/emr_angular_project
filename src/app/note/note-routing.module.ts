@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotelistComponent } from './notelist/notelist.component';
 import { LayoutComponent } from '../shared-module/layout/layout.component';
+import { NotelistComponent } from './notelist/notelist.component';
 
 
 
