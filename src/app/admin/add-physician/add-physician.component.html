@@ -91,11 +91,11 @@
   
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="form-group local-forms">
-                      <label>Address Street 2 <span class="login-danger">*</span></label>
+                      <label>Address Street 2 <span class="login-danger"></span></label>
                       <input class="form-control" type="text" formControlName="addressStreet2" placeholder="Enter address" />
-                      <div *ngIf="doctorForm.get('addressStreet2').invalid && (doctorForm.get('addressStreet2').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('addressStreet2').invalid && (doctorForm.get('addressStreet2').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('addressStreet2').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -103,9 +103,9 @@
                     <div class="form-group local-forms">
                       <label>Zip Code <span class="login-danger">*</span></label>
                       <input class="form-control" type="text" formControlName="zipCode" placeholder="Enter zip code" />
-                      <div *ngIf="doctorForm.get('zipCode').invalid && (doctorForm.get('zipCode').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('zipCode').invalid && (doctorForm.get('zipCode').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('zipCode').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -116,9 +116,9 @@
                         <option value="">Select country</option>
                         <option *ngFor="let country of countryList" [value]="country._id">{{ country.name }}</option>
                       </select>
-                      <div *ngIf="doctorForm.get('country').invalid && (doctorForm.get('country').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('country').invalid && (doctorForm.get('country').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('country').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   
@@ -129,9 +129,9 @@
                         <option value="">Select state</option>
                         <option *ngFor="let state of stateList" [value]="state._id">{{ state.name }}</option>
                       </select>
-                      <div *ngIf="doctorForm.get('state').invalid && (doctorForm.get('state').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('state').invalid && (doctorForm.get('state').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('state').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   
@@ -142,9 +142,9 @@
                         <option value="">Select city</option>
                         <option *ngFor="let city of cityList" [value]="city._id">{{ city.name }}</option>
                       </select>
-                      <div *ngIf="doctorForm.get('city').invalid && (doctorForm.get('city').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('city').invalid && (doctorForm.get('city').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('city').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   
@@ -153,9 +153,9 @@
                     <div class="form-group local-forms">
                       <label>Medical Licence Number <span class="login-danger">*</span></label>
                       <input class="form-control" type="text" formControlName="medicalLicenceNumber" placeholder="Enter medical licence number" />
-                      <div *ngIf="doctorForm.get('medicalLicenceNumber').invalid && (doctorForm.get('medicalLicenceNumber').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('medicalLicenceNumber').invalid && (doctorForm.get('medicalLicenceNumber').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('medicalLicenceNumber').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -163,9 +163,9 @@
                     <div class="form-group local-forms">
                       <label>Medical Licence Date <span class="login-danger">*</span></label>
                       <input class="form-control" type="date" formControlName="medicalLicenceDate" />
-                      <div *ngIf="doctorForm.get('medicalLicenceDate').invalid && (doctorForm.get('medicalLicenceDate').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('medicalLicenceDate').invalid && (doctorForm.get('medicalLicenceDate').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('medicalLicenceDate').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -173,9 +173,9 @@
                     <div class="form-group local-forms">
                       <label>DEA Number <span class="login-danger">*</span></label>
                       <input class="form-control" type="text" formControlName="deaNumber" placeholder="Enter DEA number" />
-                      <div *ngIf="doctorForm.get('deaNumber').invalid && (doctorForm.get('deaNumber').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('deaNumber').invalid && (doctorForm.get('deaNumber').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('deaNumber').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -183,9 +183,9 @@
                     <div class="form-group local-forms">
                       <label>DEA Expiry Date <span class="login-danger">*</span></label>
                       <input class="form-control" type="date" formControlName="deaExpiryDate" />
-                      <div *ngIf="doctorForm.get('deaExpiryDate').invalid && (doctorForm.get('deaExpiryDate').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('deaExpiryDate').invalid && (doctorForm.get('deaExpiryDate').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('deaExpiryDate').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -193,9 +193,9 @@
                     <div class="form-group local-forms">
                       <label>CDS Number <span class="login-danger">*</span></label>
                       <input class="form-control" type="text" formControlName="cdsNumber" placeholder="Enter CDS number" />
-                      <div *ngIf="doctorForm.get('cdsNumber').invalid && (doctorForm.get('cdsNumber').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('cdsNumber').invalid && (doctorForm.get('cdsNumber').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('cdsNumber').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -203,9 +203,9 @@
                     <div class="form-group local-forms">
                       <label>CDS Expiry Date <span class="login-danger">*</span></label>
                       <input class="form-control" type="date" formControlName="cdsExpiryDate" />
-                      <div *ngIf="doctorForm.get('cdsExpiryDate').invalid && (doctorForm.get('cdsExpiryDate').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('cdsExpiryDate').invalid && (doctorForm.get('cdsExpiryDate').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('cdsExpiryDate').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   
@@ -213,9 +213,9 @@
                     <div class="form-group local-forms">
                       <label>NPI Number <span class="login-danger">*</span></label>
                       <input class="form-control" type="text" formControlName="npiNumber" placeholder="Enter NPI number" />
-                      <div *ngIf="doctorForm.get('npiNumber').invalid && (doctorForm.get('npiNumber').touched || submitted)">
+                      <!-- <div *ngIf="doctorForm.get('npiNumber').invalid && (doctorForm.get('npiNumber').touched || submitted)">
                         <div class="error-message" *ngIf="doctorForm.get('npiNumber').errors.required">This field is required.</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
   

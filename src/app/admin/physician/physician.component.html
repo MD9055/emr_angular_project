@@ -57,7 +57,7 @@
                                             </div>
                                         </th>
                                         <th>Name</th>
-                                        <th>Address 1 </th>
+                                        <th>Address 1</th>
                                         <th>Address 2</th>
                                         <th>City</th>
                                         <th>Mobile</th>
@@ -73,31 +73,30 @@
                                     <tr *ngFor="let physician of physicians">
                                         <td>
                                             <div class="form-check check-tables">
-                                                <input class="form-check-input" type="checkbox" [value]="physician._id">
+                                                <input class="form-check-input" type="checkbox" [value]="physician?._id">
                                             </div>
                                         </td>
                                         <td class="profile-image">
-                                            <a href="doctor-profile.html">{{ physician.firstName }} {{ physician.lastName }}</a>
+                                            <a href="doctor-profile.html">{{ physician?.firstName }} {{ physician?.lastName }}</a>
                                         </td>
-                                        <td>{{physician.address_street1}}</td>
-                                        <td>{{physician.address_street2}}</td>
-
-                                        <td>{{physician.city.name}}</td>
-
-                                        <td><a href="javascript:;">{{ physician.phone }}</a></td>
-                                        <td>{{ physician.email }}</td>
-                                        <td>{{ physician.createdAt | date: 'shortDate' }}</td>
+                                        <td>{{ physician?.address_street1 || "NA" }}</td>
+                                        <td>{{ physician?.address_street2 || "NA" }}</td>
+                                        <td>{{ physician?.city?.name || "NA" }}</td> <!-- Display city -->
+                                        <td><a href="javascript:;">{{ physician?.phone || "NA" }}</a></td> <!-- Display mobile -->
+                                        <td>{{ physician?.email || "NA" }}</td>
+                                        <td>{{ physician?.createdAt | date: 'shortDate' }}</td> <!-- Display joining date -->
                                         <td class="text-end">
-                                            <a (click)="viewPhysician(physician?._id)"class="icon-action edit-icon" title="View">
+                                            <a (click)="viewPhysician(physician?._id)" class="icon-action edit-icon" title="View">
                                                 <i class="fa-solid fa-pen-to-square m-r-5"></i>
                                             </a>
-                                            <a (click)="deletePhysician(physician._id)"class="icon-action delete-icon" title="Delete">
+                                            <a (click)="deletePhysician(physician._id)" class="icon-action delete-icon" title="Delete">
                                                 <i class="fa fa-trash-alt m-r-5"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            
                             
                             <div class="table_footer">
                                 <div class="col-sm-12 col-md-5">

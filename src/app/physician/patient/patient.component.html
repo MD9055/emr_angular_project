@@ -63,7 +63,8 @@
                                         <th>State</th>
                                         <th>Country</th>
                                         <th>Joining Date</th>
-                                        <th></th>
+                                        <th>OMR Sheet</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,6 +91,15 @@
                                         <td>{{ patient?.state?.name || 'N/A' }}</td>
                                         <td>{{ patient?.country?.name || 'N/A' }}</td>
                                         <td>{{ patient?.dob ? (patient?.dob | date: 'MM-dd-yyyy') : 'N/A' }}</td>
+                                        <!-- <td>{{ patient?.omrSheet ? patient?.omrSheet : 'N/A' }}</td> -->
+                                        <td *ngIf="patient?.omrSheet != ''">
+                                            <a *ngIf="patient?.omrSheet" [href]="patient.omrSheet" target="_blank" download class="btn btn-primary">
+                                                Download
+                                            </a>
+                                            <span *ngIf="!patient?.omrSheet">N/A</span>
+                                        </td>
+                                        
+
                                         <td class="text-end">
 
                                             <a (click)="editpatient(patient._id)" class="icon-action edit-icon" title="Edit">

@@ -31,14 +31,23 @@ export class LoginComponent implements OnInit {
       this.commonService.post('auth/login', formData).subscribe(response => {
         if (response.statusCode === 200) {
           console.log(response);
-  
-          this.authService.login(response?.data.token);
-  
-          const decodedToken = this.commonService.decodeToken(response?.data?.token);
-          console.log(decodedToken);
-          this.toastrService.success(response.message)
-          this.commonService.redirectBasedOnRole(decodedToken.role);
-        } else {
+          
+          // Safely access the token
+          const token = response?.token || response?.data?.token;
+      
+          if (token) {
+              this.authService.login(token);
+      
+              const decodedToken = this.commonService.decodeToken(token);
+              console.log(decodedToken);
+              this.toastrService.success(response.message);
+              this.commonService.redirectBasedOnRole(decodedToken.role);
+          } else {
+              console.error('Token not found in the response');
+              this.toastrService.error('Login failed: No token received');
+          }
+      }
+       else {
           // this.errorMessage = response.message;
           this.toastrService.error(response.message)
           
