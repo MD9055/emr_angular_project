@@ -116,16 +116,18 @@ export class AddAdminComponent implements OnInit {
   
       this.commonService.post('superadmin/admin', formData).subscribe(
         (response: any) => {
-          if (response.statusCode === 200 || response.statusCode === 201) {
+          if (response.statusCode === 200) {
             console.log('Admin saved successfully:', response.data);
             this.router.navigateByUrl('/superadmin/admin')
-          } else {
+          } else if(response.statusCode == 201){
+              this.toastService.error(response.message)
+          }else {
             console.error(`Error: ${response.message}`);
             this.handleError(response.message);
           }
         },
         (error) => {
-          console.error('HTTP Error:', error);
+         
           this.handleError('An error occurred while saving the admin.');
         }
       );

@@ -86,7 +86,7 @@
                                         <td>{{physician.address_street1}}</td>
                                         <td>{{physician.address_street2}}</td>
 
-                                        <td>{{physician.city.name}}</td>
+                                        <td>{{physician?.city?.name || "NA"}}</td>
 
                                         <td><a href="javascript:;">{{ physician.phone }}</a></td>
                                         <td>{{ physician.email }}</td>
