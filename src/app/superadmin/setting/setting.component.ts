@@ -28,7 +28,6 @@ export class SettingComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
-
   ngOnInit(): void {
     this.getTokenMethod().then((token) => {
       this.decodedToken = this.commonService.decodeToken(token);
@@ -37,18 +36,15 @@ export class SettingComponent implements OnInit {
       }
     });
   }
-
   onSubmit(): void {
     this.submitted = true;
     if (this.staffForm.invalid) {
-      return;
+        return;
     }
-
     console.log('Form Submitted', this.staffForm.value);
-
-    this.staffForm.reset();
-    this.submitted = false;
-  }
+    this.updateUser(); 
+    this.fetchCurrentUser(this.decodedToken.userId)
+}
 
   onCancel(): void {
     this.staffForm.reset();
@@ -69,6 +65,37 @@ export class SettingComponent implements OnInit {
       }
     });
   }
+
+  updateUser() {
+    if (this.staffForm.invalid) {
+        console.error('Form is invalid, cannot update user.');
+        return; // Prevent the update if the form is invalid
+    }
+
+    const updatedData = {
+        firstName: this.staffForm.get('firstName')?.value,
+        lastName: this.staffForm.get('lastName')?.value,
+        phone: this.staffForm.get('phone')?.value,
+    };
+
+    this.commonService.put(`common/updateByID`, { _id: this.decodedToken.userId, updateData: updatedData }).subscribe(
+        (response: any) => {
+            if (response.statusCode === 200) {
+                console.log('User updated successfully:', response.data);
+                // Optionally reset the form or navigate
+                this.staffForm.reset();
+                this.submitted = false;
+            } else {
+                console.error('Error:', response.message || 'An error occurred during the update.');
+            }
+        },
+        (error) => {
+            console.error('Request failed with error:', error.message || 'An unexpected error occurred.');
+        }
+    );
+}
+
+
 
   getTokenMethod() {
     return new Promise((resolve, reject) => {

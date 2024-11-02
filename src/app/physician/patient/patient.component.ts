@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { EncryptionDecryptionService } from 'src/app/services/encryption-decryption.service';
 import { MaskingService } from 'src/app/services/masking.service';
-
+import {environment} from "../../../environments/environment"
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -28,7 +28,17 @@ export class PatientComponent implements OnInit {
     return this.commonService.get('physician/listPatients').subscribe(
         (response: any) => {
             if (response.statusCode === 200) {
-                 this.patients = response.data.docs; 
+                 this.patients = response.data.docs;
+                 this.patients.forEach((element: any) => {
+                  if (element ) {
+                    if(element.omrSheet != undefined){
+                      element.omrSheet = environment.apiUrl + '/' + element.omrSheet;
+
+                    }
+                  }
+                  console.log(element)
+              });
+              
             } else {
                 console.error('Error fetching patients:', response.message);
                 throw new Error(response.message || 'Failed to fetch patients');

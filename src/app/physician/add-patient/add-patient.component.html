@@ -374,16 +374,28 @@
                       <div *ngIf="isInvalid('kin_city')" class="text-danger">Kin city is required.</div>
                     </div>
                   </div>
-                  <div class="col-12">
-                    <div class="doctor-submit text-end">
-                      <button class="btn btn-primary submit-form me-2" type="submit">
-                        Submit
-                      </button>
-                      <button class="btn btn-primary cancel-form" type="button">
-                        Cancel
-                      </button>
+
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="form-group local-forms">
+                      <!-- <label for="omrsheet" class="form-label">Upload File <span class="login-danger">*</span></label> -->
+                      <input type="file" class="form-control-file" id="omrsheet" formControlName="omrsheet" (change)="onFileChange($event)" />
+                      <div *ngIf="isInvalid('omrsheet')" class="text-danger mt-2">A file is required.</div>
                     </div>
                   </div>
+                  
+                  
+                  <div class="col-12">
+                    <div class="doctor-submit text-end">
+                        <button class="btn btn-primary submit-form me-2" type="submit">
+                            Submit
+                        </button>
+                        <button class="btn btn-primary cancel-form" type="button">
+                            Cancel
+                        </button>
+                      
+                    </div>
+                </div>
+                
                 </div>
               </form>
             </div>

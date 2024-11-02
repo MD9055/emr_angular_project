@@ -66,34 +66,83 @@ departments: { _id: number, name: string }[] = [
       kin_country: [''], // no Validators.required
       kin_state: [''], // no Validators.required
       kin_city: [''], // no Validators.required
+      omrsheet: [null] 
     });
     
   }
 
+  // handleAddPatients() {
+  //   if (this.patientForm.valid) {
+  //     console.log(this.patientForm.value);
+      
+  //     this.commonService.post('physician/addPatient', this.patientForm.value)
+  //       .pipe(
+  //         catchError(error => {
+  //           this.toastrService.error(error)
+  //           return of(null); 
+  //         })
+  //       )
+  //       .subscribe((response:any) => {
+  //         if (response.statusCode == 200) {
+  //           this.toastrService.success(response.message);
+  //           this.patientForm.reset();
+  //           this.router.navigate(['/physician/patient']); 
+  //         } else {
+  //          this.toastrService.error(response.message)
+  //         }
+  //       });
+  //   } else {
+  //     this.patientForm.markAllAsTouched(); 
+  //   }
+  // }
+
   handleAddPatients() {
     if (this.patientForm.valid) {
-      console.log(this.patientForm.value);
-      
-      this.commonService.post('physician/addPatient', this.patientForm.value)
+      const formData:any = new FormData();
+  
+      // Append form values to FormData
+      Object.keys(this.patientForm.value).forEach(key => {
+        const value = this.patientForm.value[key];
+  
+        // Append only the form data excluding the file path as a string
+        if (key !== 'omrsheet') {
+          formData.append(key, value);
+        }
+      });
+  
+      // Append the file if it exists
+      const file = this.patientForm.get('omrsheet').value;
+      if (file instanceof File) {
+        formData.append('omrsheet', file, file.name); // Append the file
+      }
+  
+      // Log the form data for debugging
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+  
+      this.commonService.post('physician/addPatient', formData)
         .pipe(
           catchError(error => {
-            this.toastrService.error(error)
-            return of(null); 
+            this.toastrService.error(error);
+            return of(null);
           })
         )
-        .subscribe((response:any) => {
-          if (response.statusCode == 200) {
+        .subscribe((response: any) => {
+          if (response.statusCode === 200) {
             this.toastrService.success(response.message);
             this.patientForm.reset();
-            this.router.navigate(['/physician/patient']); 
+            this.router.navigate(['/physician/patient']);
           } else {
-           this.toastrService.error(response.message)
+            this.toastrService.error(response.message);
           }
         });
     } else {
-      this.patientForm.markAllAsTouched(); 
+      this.patientForm.markAllAsTouched();
     }
   }
+  
+  
 
   isInvalid(controlName: string) {
     return this.patientForm.get(controlName)?.invalid && this.patientForm.get(controlName)?.touched;
@@ -213,5 +262,15 @@ departments: { _id: number, name: string }[] = [
 
   handleError(message: string) {
     alert(message); 
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      console.log('File selected:', file);
+      this.patientForm.patchValue({
+        omrsheet: file
+      });
+    }
   }
 }
